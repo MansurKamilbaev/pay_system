@@ -63,6 +63,15 @@ def edit_user_db(user_id, edit_info, new_info):
     else:
         return 'Такой пользователь отсуствует'
 
-# def delete_user_db():
 
+def delete_user_db(user_id):
+    db = next(get_db())
 
+    user = db.query(User).filter_by(user_id=user_id).first()
+
+    if not user:
+        return 'такой пользователь найден(('
+    else:
+        db.delete(user)
+        db.commit()
+        return 'пользователь удален'
